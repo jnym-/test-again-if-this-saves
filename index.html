@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bearing Constraints Model</title>
+  <link rel="icon" href="https://www.imperial.ac.uk/T4Assets/favicon-196x196.png" type="image/x-icon">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/skeleton.css">
+  <link rel="stylesheet" href="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/style.css">
+  <link rel="stylesheet" href="styles/local.css">
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
+  <script src="https://rawgit.com/processing/p5.js/master/lib/addons/p5.dom.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  
+  <!-- Local Scripts -->
+  <script src="scripts/draw.js"></script>
+  <script src="scripts/model.js"></script>
+  <script src="scripts/table.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="two-thirds column">
+        <div id='myContainer'>
+          <div class="switch-big">
+            <input onclick="updateMode()" type="radio" id="design" name="mode.ID" value="design" checked/>
+            <label for="design">Design Mode</label>
+            <input onclick="updateMode()" type="radio" id="test" name="mode.ID" value="test" />
+            <label for="test">Test Mode</label>
+          </div>
+        </div>
+
+        <input id="options" class="button-primary" type="button" value="Options">
+
+        <div id='modalBox' class='modal'>
+          <div class='modal-content'>
+            <span href="#" class="close"></span>
+            <h4>Options</h4>
+              Select a shaft type:
+              <div class="switch-small">
+                <input onclick="updateStyle()" type="radio" id="straight" name="shaft.ID" value="straight" checked/>
+                <label for="straight">Straight</label>
+                <input onclick="updateStyle()" type="radio" id="stepped" name="shaft.ID" value="stepped" />
+                <label for="stepped">Stepped</label>
+              </div> <br>
+              Merge bearing housings: <input id="housing" type="checkbox" onclick="updateHousing()"><br>
+          </div>
+        </div>
+
+        <input id="reset" class="button-primary" type="button" value="Reset" onclick="reset()">
+
+        <div id="model.ID" class='placeholder'></div>
+
+        <div class="animations">
+          <img id="graphic" src="animations/background.gif">
+        </div>
+
+        <div class="selection">
+          <h5>Internal Constraints</h5>
+            <input id="extCirclip" value="External Circlip" type="button" onclick="feature('extCirclip')">
+            <input id="collar" value="Shoulder" type="button" onclick="feature('collar')">
+            <input id="inSpacer" value="Spacer" type="button" onclick="feature('inSpacer')">
+            <input id="cap" value="End Cap" type="button" onclick="feature('cap')">
+          <h5>External Constraints</h5>
+            <input id="intCirclip" value="Internal Circlip" type="button" onclick="feature('intCirclip')">
+            <input id="shoulder" value="Shoulder" type="button" onclick="feature('shoulder')">
+            <input id="outSpacer" value="Spacer" type="button" onclick="feature('outSpacer')">
+        </div>
+
+        <div class="test-message">
+          <b>Click and drag a component to test how it is constrained.</b> <br>
+          <i>Please note that the bearing housings are considered fixed in this environment.</i>
+        </div>
+
+      </div>
+
+      <div class="one-third column">
+        <h5>System Parameters</h5>
+
+        <table id="bearing-table">
+          <tr>
+            <td></td>
+            <td class="table-heading">Internal Contraints</td>
+            <td class="table-heading">External Constraints</td>
+          </tr>
+          <tr>
+            <td rowspan="2" class="table-heading"> Left Bearing</td>
+            <td id="leftInt"></td>
+            <td id="leftExt"></td>
+          </tr>
+          <tr>
+            <td id="leftIntCon"></td>
+            <td id="leftExtCon"></td>
+          </tr>
+          <tr>
+            <td rowspan="2" class="table-heading"> Right Bearing</td>
+            <td id="rightInt"></td>
+            <td id="rightExt"></td>
+          </tr>
+          <tr>
+            <td id="rightIntCon"></td>
+            <td id="rightExtCon"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://rawgit.com/Imperial-visualizations/Physics-Visualizations/master/css/navigator.js"></script>
+  <script src="scripts/DOM.js"></script>
+</body>
+
+<script src="https://iv.staging.blumin.co.uk/frame.js?visualisation=21"></script></html>
